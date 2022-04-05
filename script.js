@@ -3,13 +3,9 @@ const mainRepos = document.querySelector(".main");
 const userInput = document.querySelector(".user__input");
 const head = document.querySelector(".head");
 let findUser = async function (url) {
-  try {
-    let a = await fetch(url);
-    if (!a.ok) {
-      throw new Error(`Api bilan ulanishda xato ${a.status} ${a.statusText}`);
-    }
-    let obj = await a.json();
-    let html = `<div class="box user__info">
+  let a = await fetch(url);
+  let obj = await a.json();
+  let html = `<div class="box user__info">
   <div class="user__img">
     <img class="user-img" src="${obj.avatar_url}" alt="" />
     <a href="${obj.html_url}" class="btn">View Profile</a>
@@ -32,10 +28,7 @@ let findUser = async function (url) {
     </div>
   </div>
 </div>`;
-    head.innerHTML = html;
-  } catch (err) {
-    alert(err);
-  }
+  head.innerHTML = html;
 };
 const addRepo = async function (url) {
   let a = await fetch(url);
@@ -55,13 +48,15 @@ const addRepo = async function (url) {
 };
 userInput.addEventListener("input", function () {
   if (userInput.value !== "") {
-    findUser(
-      `https://api.github.com/users/${userInput.value}?client_id=996ca6b5187a15062efc&client_secret=9fd10f23427a1e0f7863b39e110a480c583f9d89`
-    );
-    addRepo(
-      `https://api.github.com/users/${userInput.value}/repos?per_page=created: asc&sort=5&client_id=996ca6b5187a15062efc&client_secret=9fd10f23427a1e0f7863b39e110a480c583f9d89`
-    );
+    findUser(`https://api.github.com/users/${userInput.value}`);
+    addRepo(`https://api.github.com/users/${userInput.value}/repos`);
   }
 });
 // let clienID = "996ca6b5187a15062efc";
 // let sec = "9fd10f23427a1e0f7863b39e110a480c583f9d89";
+// findUser(
+//   `https://api.github.com/users/${userInput.value}?client_id=996ca6b5187a15062efc&client_secret=9fd10f23427a1e0f7863b39e110a480c583f9d89`
+// );
+// addRepo(
+//   `https://api.github.com/users/${userInput.value}/repos?per_page=created: asc&sort=5&client_id=996ca6b5187a15062efc&client_secret=9fd10f23427a1e0f7863b39e110a480c583f9d89`
+// );
