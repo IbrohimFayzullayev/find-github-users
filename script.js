@@ -34,6 +34,7 @@ let findUser = async function (url) {
 const addRepo = async function (url) {
   let a = await fetch(url);
   let r = await a.json();
+  mainRepos.innerHTML = "";
   for (let repo of r) {
     let h = `<div class="box repo">
   <a href="${repo.html_url}" class="repo__name">${repo.name}</a>
