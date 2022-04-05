@@ -1,13 +1,7 @@
-// let getApi = function (url) {
-//   fetch(url)
-//     .then((response) => response.json())
-//     .then((res) => console.log(res));
-// };
-// // getApi("https://api.github.com/users");
-// // getApi("https://api.github.com/users/IbrohimFayzullayev/repos");
 const heading = document.querySelector(".heading__box");
-const main = document.querySelector(".main");
+const mainRepos = document.querySelector(".main");
 const userInput = document.querySelector(".user__input");
+const head = document.querySelector(".head");
 let findUser = async function (url) {
   let a = await fetch(url);
   let obj = await a.json();
@@ -34,44 +28,25 @@ let findUser = async function (url) {
     </div>
   </div>
 </div>`;
-  heading.insertAdjacentHTML("afterend", html);
+  head.innerHTML = html;
 };
 
 const addRepo = async function (url) {
   let a = await fetch(url);
-  let repo = await a.json();
-  let html = `<div class="box repo">
+  let r = await a.json();
+  for (let repo of r) {
+    let h = `<div class="box repo">
   <a href="${repo.html_url}" class="repo__name">${repo.name}</a>
   <div class="report">
     <p class="stat stat__1">Starts: ${repo.stargazers_count}</p>
     <p class="stat stat__2">Watchers: ${repo.watchers_count}</p>
     <p class="stat stat__3">Forks: ${repo.forks}</p>
   </div>
-</div>`;
-  main.insertAdjacentHTML("afterbegin", html);
+  </div>`;
+    mainRepos.insertAdjacentHTML("afterbegin", h);
+  }
 };
-userInput.addEventListener("input", function (e) {
-  // console.log(userInput.value);
+userInput.addEventListener("input", function () {
   findUser(`https://api.github.com/users/${userInput.value}`);
   addRepo(`https://api.github.com/users/${userInput.value}/repos`);
 });
-
-// let getApi = async function (url) {
-//   let a = await fetch(url);
-//   let b = await a.json();
-//   return b;
-// };
-// let users = getApi("https://api.github.com/users");
-
-// let apiGet = function (url) {
-//   let a = fetch(url)
-//     .then((res) => res.json())
-//     .then(
-//       (resjson) =>
-//         new Promise((resolve) => {
-//           resolve(resjson);
-//         })
-//     );
-//   return a;
-// };
-// apiGet("https://api.github.com/users");
