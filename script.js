@@ -23,14 +23,13 @@ let findUser = async function (url) {
         <p class="about__text">Company: ${obj.company}</p>
         <p class="about__text">Website/Blog:${obj.blog}</p>
         <p class="about__text">Location:${obj.location}</p>
-        <p class="about__text yes__border">Member Since:${obj.created_a}</p>
+        <p class="about__text yes__border">Member Since:${obj.created_at}</p>
       </div>
     </div>
   </div>
 </div>`;
   head.innerHTML = html;
 };
-
 const addRepo = async function (url) {
   let a = await fetch(url);
   let r = await a.json();
@@ -48,6 +47,14 @@ const addRepo = async function (url) {
   }
 };
 userInput.addEventListener("input", function () {
-  findUser(`https://api.github.com/users/${userInput.value}`);
-  addRepo(`https://api.github.com/users/${userInput.value}/repos`);
+  if (userInput.value !== "") {
+    findUser(
+      `https://api.github.com/users/${userInput.value}?client_id=996ca6b5187a15062efc&client_secret=9fd10f23427a1e0f7863b39e110a480c583f9d89`
+    );
+    addRepo(
+      `https://api.github.com/users/${userInput.value}/repos?per_page=created: asc&sort=5&client_id=996ca6b5187a15062efc&client_secret=9fd10f23427a1e0f7863b39e110a480c583f9d89`
+    );
+  }
 });
+// let clienID = "996ca6b5187a15062efc";
+// let sec = "9fd10f23427a1e0f7863b39e110a480c583f9d89";
