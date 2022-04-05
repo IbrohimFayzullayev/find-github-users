@@ -3,9 +3,13 @@ const mainRepos = document.querySelector(".main");
 const userInput = document.querySelector(".user__input");
 const head = document.querySelector(".head");
 let findUser = async function (url) {
-  let a = await fetch(url);
-  let obj = await a.json();
-  let html = `<div class="box user__info">
+  try {
+    let a = await fetch(url);
+    if (!a.ok) {
+      throw new Error(`Api bilan ulanishda xato ${a.status} ${a.statusText}`);
+    }
+    let obj = await a.json();
+    let html = `<div class="box user__info">
   <div class="user__img">
     <img class="user-img" src="${obj.avatar_url}" alt="" />
     <a href="${obj.html_url}" class="btn">View Profile</a>
@@ -28,7 +32,10 @@ let findUser = async function (url) {
     </div>
   </div>
 </div>`;
-  head.innerHTML = html;
+    head.innerHTML = html;
+  } catch (err) {
+    alert(err);
+  }
 };
 const addRepo = async function (url) {
   let a = await fetch(url);
