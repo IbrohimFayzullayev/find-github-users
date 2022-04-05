@@ -48,8 +48,12 @@ const addRepo = async function (url) {
 };
 userInput.addEventListener("input", function () {
   if (userInput.value !== "") {
-    findUser(`https://api.github.com/users/${userInput.value}`);
-    addRepo(`https://api.github.com/users/${userInput.value}/repos`);
+    findUser(
+      `https://api.github.com/users/${userInput.value}?client_id=996ca6b5187a15062efc&client_secret=9fd10f23427a1e0f7863b39e110a480c583f9d89`
+    );
+    addRepo(
+      `https://api.github.com/users/${userInput.value}/repos?per_page=created: asc&sort=5&client_id=996ca6b5187a15062efc&client_secret=9fd10f23427a1e0f7863b39e110a480c583f9d89`
+    );
   }
 });
 // let clienID = "996ca6b5187a15062efc";
